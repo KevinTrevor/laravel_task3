@@ -159,7 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Weidner\Goutte\GoutteServiceProvider::class,
         /*
          * Application Service Providers...
          */
