@@ -1,31 +1,50 @@
-<!doctype html>
-<html lang="en">
+@extends('adminlte::page')
+
+@section('title', '{{ $product->name }} Price')
+
+@section('head')
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+@vite('resources/css/app.css')
+
+@stop
+
+@section('content_header')
+    <h1> {{ $product->name }} </h1>
+@stop
+
+@section('content')
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $product->name }} Price </title>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    
 </head>
 
 <body class="h-screen bg-gray-100">
-<div class="container px-4 mx-auto">
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $product->name }}
-        </h2>
-    </x-slot>
-    
-    @foreach ($charts as $chart)
-    <div class="p-6 m-20 bg-white rounded shadow">
-        {!! $chart->container() !!}
-    </div>
-    
-    </div>
+<div class="card">
+    <div class="card-body bg-gray-300">
+        @foreach ($charts as $chart)
+        <div class="container px-4 mx-auto">
+            <div class="p-2 m-5 bg-white rounded shadow">
+                {!! $chart->container() !!}
+            </div>
+            
+        </div>
 
-    <script src="{{ $chart->cdn() }}"></script>
+        <script src="{{ $chart->cdn() }}"></script>
 
-    {{ $chart->script() }}
-    @endforeach
+        {{ $chart->script() }}
+        @endforeach
+    </div>
+</div>
 </body>
-</html>
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script></script>
+@stop

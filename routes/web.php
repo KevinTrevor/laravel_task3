@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AmazonGoutteController;
 use App\Http\Controllers\ExpensesController;
+use App\Http\Controllers\ProductController;
 use App\Http\Livewire\CreateProduct;
 use App\Http\Livewire\IndexProduct;
 use App\Http\Livewire\ShowProduct;
@@ -18,22 +19,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
+    ])->group(function () {
+        Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/products', IndexProduct::class);
-    Route::get('/products/create', CreateProduct::class);
-    Route::get('/products/{product}', ShowProduct::class);
-
-    Route::get('/prices', [ExpensesController::class, 'index'])->name('expenses.index');
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 });

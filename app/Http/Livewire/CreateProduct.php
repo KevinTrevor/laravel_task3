@@ -8,12 +8,19 @@ use Livewire\Component;
 class CreateProduct extends Component
 {
     public $name = '';
+    public $urls = [];
 
     public function save()
     {
-        Product::create(
+        $product = Product::create(
             $this->only(['name'])
         );
+
+        foreach($this->urls as $url) {
+            $product->urls()->create([
+                'url' => $url,
+            ]);
+        }
 
         return $this->redirect('/products');
     }

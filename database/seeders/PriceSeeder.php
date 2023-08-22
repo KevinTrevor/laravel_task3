@@ -13,16 +13,16 @@ class PriceSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Price::create([
-            'url_id' => Url::find(1)->id,
-            'amount' => 10.95,
-            'currency' => 'EUR'
-        ]);
+        // \App\Models\Price::create([
+        //     'url_id' => Url::find(1)->id,
+        //     'amount' => 10.95,
+        //     'currency' => 'EUR'
+        // ]);
 
-        \App\Models\Price::create([
-            'url_id' => Url::find(2)->id,
-            'amount' => 4.55,
-            'currency' => 'EUR'
-        ]);
+        // \App\Models\Price::create([
+        //     'url_id' => Url::find(2)->id,
+        //     'amount' => 4.55,
+        //     'currency' => 'EUR'
+        // ]);
     }
 }
