@@ -1,29 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Custom;
 
-use Illuminate\Http\Request;
 use Goutte\Client;
 
-class AmazonGoutteController extends Controller
+class WebScrapper
 {
-    public function doWebScraping() {
+    public function doWebScraping($url) {
         $goutteClient = new Client();
         
-        $url = 'https://www.ebay.de/itm/325508349111';
-
         $crawler = $goutteClient->request(
             method: 'GET',
             uri: $url,
         );
 
         $selector = $this->switchSelector($url);
-        echo $crawler->filter(selector: $selector)->text();
+        echo $crawler->filter(selector: '.product__price')->text();
     }
 
     private function switchSelector(string $url) {
-        $splittedUrl = explode('.', $url);
+        $splittedUrl = explode(".", $url);
 
+        // splitedUrl[!] is the domain name of the URL.
         switch ($splittedUrl[1]) {
             case 'amazon':
                 $selector = '';
@@ -32,10 +30,7 @@ class AmazonGoutteController extends Controller
                 $selector = '.x-price-primary';
                 break;
             case 'coolblue':
-                $selector = '.js-sales-price-wrapper';
-                break;
-            case 'mediamarkt':
-                $selector = '.ProductDetails-styled__StyledSection-sc-b2e6b065-0 MZbQR span';
+                $selector = '';
                 break;
             case 'berlet':
                 $selector = '';
@@ -44,7 +39,7 @@ class AmazonGoutteController extends Controller
                 $selector = '.price-box__prices';
                 break;
             case 'technikdirekt':
-                $selector = ".price__detail flex h2";
+                $selector = '.essentials__priceBox h2';
             case 'otto':
                 $selector = '.pdp_price__retail-price';
                 break;
@@ -52,12 +47,9 @@ class AmazonGoutteController extends Controller
                 $selector = '.price-info';
                 break;
             case 'cortexpower':
-                $selector = '.original';
-                break;
-            case 'basketballdirect':
-                $selector = '';
                 break;
         }
         return $selector;
     }
 }
+ 

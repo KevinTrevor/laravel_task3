@@ -41,6 +41,10 @@
         </tr>
         @endforeach
         </tbody>
+    </table>
+    <div class="table-footer pt-2">
+        {{ $products->links() }}
+    </div>
 </div>
 @stop
 
