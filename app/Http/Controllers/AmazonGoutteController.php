@@ -12,10 +12,13 @@ class AmazonGoutteController extends Controller
         
         $crawler = $goutteClient->request(
             method: 'GET',
-            uri: 'https://www.amazon.de/dp/B01IQINP1S'
+            uri: 'https://www.basketballdirect.com/de/nike-everyday-cushioned-6-pack-socks-sx7666-100?setLanguage=true&size=6471'
         );
-        $span = $crawler->filter('div.a-section a-spacing-none aok-align-center span.a-price aok-align-center reinventPricePriceToPayMargin priceToPay');
-        $totalPrice = $span->text();
-        dd($totalPrice);
+        echo $crawler->filter(selector: '.product__price')->text();
+
+        //echo "<pre>";
+        //print_r($crawler);
+        //$totalPrice = $span->text();
+        //print_r($totalPrice);
     }
 }

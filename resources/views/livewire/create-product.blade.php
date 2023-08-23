@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Create Product')
 
 @section('content_header')
     <h1>Create a Product</h1>
@@ -11,22 +11,32 @@
 <div class="card md:container md:mx-auto">
   <div class="card-body">
     {!! Form::open(['route' => 'products.store']) !!}
+    @csrf
 
       <div class="flex items-center border-b border-blue-500 py-2">
         {!! 
           Form::text('name', null, 
-          ['class' => 'appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none', 
-          'placeholder' => 'Product name'
+          ['class' => 'form-control appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none', 
+          'placeholder' => 'Product name',
+          'required' => 'required',
           ]) 
         !!}
+        @error('neme')
+          <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
       </div>
 
       <div class="row flex border-b border-blue-500 py-2" id="urlInputs">
         <div class="col-12">
           {!! Form::url('urls[]', null, 
-          ['class' => 'appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none', 
-          'placeholder' => 'URL']) 
+          ['class' => 'form-control appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none', 
+          'placeholder' => 'URL',
+          'required' => 'required',
+          ]) 
           !!}
+          @error('urls[]')
+            <div class="alert alert-danger">{{ $message }}</div>
+          @enderror
         </div>
       </div>
 
@@ -56,8 +66,10 @@
   `
   <div class="col-12">
       {!! Form::url('urls[]', null, 
-      ['class' => 'appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none', 
-      'placeholder' => 'URL']) 
+      ['class' => 'form-control appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none', 
+      'placeholder' => 'URL',
+      'required' => 'required',
+    ]) 
       !!}
   </div>
   `

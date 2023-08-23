@@ -33,7 +33,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|min:3|max:255',
         ]);
 
         $product = Product::create(['name' => $request->name]);
@@ -45,7 +45,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with('info','Product created successfully');
     }
 
     /**

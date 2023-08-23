@@ -14,8 +14,8 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
-    'title_prefix' => '',
+    'title' => '',
+    'title_prefix' => 'PriceFinder |',
     'title_postfix' => '',
 
     /*
@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '<b>Price</b>Finder',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'vendor/adminlte/dist/img/PriceFinderLogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/PriceFinderLogo2.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -109,7 +109,7 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/PriceFinderLogo2.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
@@ -292,14 +292,14 @@ return [
     'menu' => [
         ['header' => 'PRODUCTS'],
             [
-                'text' => 'List',
+                'text' => 'View Products',
                 'route' => 'products.index',
-                'icon' => 'fas fa-fw fa-user',
+                'icon' => 'fas fa-solid fa-eye',
             ],
             [
-                'text' => 'Create',
+                'text' => 'Create Product',
                 'route' => 'products.create',
-                'icon' => 'fas fa-fw fa-user',
+                'icon' => 'fas fa-solid fa-plus',
             ],
         // Navbar items:
     //     [

@@ -35,4 +35,6 @@ Route::middleware([
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
     Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+
+    Route::get('/prices', [AmazonGoutteController::class, 'doWebScraping']);
 });

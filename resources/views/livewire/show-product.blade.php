@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', '{{ $product->name }} Price')
+@section('title', "Product Pricing")
 
 @section('head')
 
