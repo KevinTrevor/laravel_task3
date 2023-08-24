@@ -184,6 +184,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Goutte' => Weidner\Goutte\GoutteFacade::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 

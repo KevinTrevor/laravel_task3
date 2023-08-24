@@ -25,15 +25,13 @@
 <div class="card">
     <div class="card-body bg-gray-300">
         @foreach ($charts as $chart)
-        <div class="container px-4 mx-auto">
-            <div class="p-2 m-5 bg-white rounded shadow">
-                {!! $chart->container() !!}
+            <div class="container px-4 mx-auto">
+                <div class="p-2 m-5 bg-white rounded shadow">
+                    {!! $chart->container() !!}
+                </div>
+                
             </div>
-            
-        </div>
-
-        <script src="{{ $chart->cdn() }}"></script>
-
+            <script src="{{ $chart->cdn() }}"></script>
         {{ $chart->script() }}
         @endforeach
     </div>
