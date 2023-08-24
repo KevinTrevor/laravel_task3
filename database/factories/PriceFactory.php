@@ -18,8 +18,8 @@ class PriceFactory extends Factory
     public function definition(): array
     {
         return [
-                'url_id' => Url::first()->id,
-                'amount' => $this->faker->randomElement([300,400,14,51,320,12,1,50,0,5423]),
+                'url_id' => $this->faker->randomElement([1,2,3,4,5,6,7,8,9,10,11,12]),
+                'amount' => $this->faker->randomElement([300.99,400.75,14.00,51,320,12,1.5,50.99,580.74]),
                 'currency' => $this->faker->randomElement(['EUR', 'USD']),
         ];
     }

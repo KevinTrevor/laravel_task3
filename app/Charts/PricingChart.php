@@ -4,7 +4,7 @@ namespace App\Charts;
 
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 
-class ExpensesChart
+class PricingChart
 {
     protected $chart;
 

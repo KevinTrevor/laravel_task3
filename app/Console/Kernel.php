@@ -14,8 +14,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->job(new WebScrapingJob())
-        ->everyMinute()
-        ->withoutOverlapping()
+        ->everyTenMinutes()
         ->description('Do webscraping for the products');
     }
 

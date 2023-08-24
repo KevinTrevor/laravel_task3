@@ -43,16 +43,20 @@ class WebScrapingJob implements ShouldQueue
                 if ($scraping['statusCode'] == 200) {
                     if ($priceRegistered != 0) {
                         $lastPrice = Price::orderBy('created_at', 'desc')->first();
-                        $lastPriceAmount = $lastPrice->amount;
+                        $lastPriceAmount = round($lastPrice->amount, 2);
                         $actualPriceAmount = $scraping['priceValue'];
-                        if (($lastPriceAmount - $actualPriceAmount) < 0.00001) continue;
+                        $tolerance = 0.00001;
 
-                        $url->prices()->create([
-                            'url_id' => $url->id,
-                            'amount' => $scraping['priceValue'],
-                            'currency' => $scraping['currency'],
-                        ]);
+                        if (($actualPriceAmount - $lastPriceAmount) < $tolerance) { 
+                            continue; 
+                        }
                     }
+
+                    $url->prices()->create([
+                        'url_id' => $url->id,
+                        'amount' => $scraping['priceValue'],
+                        'currency' => $scraping['currency'],
+                    ]);
                 }
             }
         }

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\ExpensesChart;
+use App\Charts\PricingChart;
 use App\Models\Price;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -52,7 +51,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id, ExpensesChart $chart)
+    public function show(string $id, PricingChart $chart)
     {
         $product = Product::find($id);
 
