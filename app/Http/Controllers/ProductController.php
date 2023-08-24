@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Charts\ExpensesChart;
+use App\Models\Price;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(4);
+        $products = Product::paginate(5);
 
         return view('livewire.index-product', ['products' => $products]);
     }
@@ -61,10 +62,10 @@ class ProductController extends Controller
         foreach ($urls as $value) {
             $prices = [];
             $dates = [];
-            $priceModels = DB::table('prices')->where('url_id', '=', $value->id)->get();
+            $priceModels = Price::all()->where('url_id', '=', $value->id)->all();
 
             foreach ($priceModels as $priceModel) {
-                array_push($dates, $priceModel->created_at);
+                array_push($dates, explode("T", $priceModel->created_at)[0]);
                 array_push($prices, $priceModel->amount);
             }
             array_push($charts, $chart->build($value->url, $prices, $dates));

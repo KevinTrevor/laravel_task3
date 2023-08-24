@@ -39,6 +39,10 @@
 </body>
 @stop
 
+@section('footer')
+    <livewire:footer>
+@stop
+
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop

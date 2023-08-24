@@ -21,14 +21,14 @@ class WebScraper
         if ($filterComponent->count() != 0) {
             $text = $filterComponent->text();
             return [
-                'statusCode' => '200',
+                'statusCode' => 200,
                 'priceValue' => $parser->parsePrice($domain, $text),
                 'currency' => 'EUR',
             ];
         }
         else {
             return [
-                'statusCode' => '404',
+                'statusCode' => 404,
             ];
         }
         
@@ -66,7 +66,7 @@ class WebScraper
                 $selector = '.original';
                 break;
             case 'basketballdirect':
-                $selector = '.product__price';
+                $selector = '.price-container';
                 break;
         }
         return $selector;

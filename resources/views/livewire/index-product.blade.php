@@ -42,10 +42,14 @@
         @endforeach
         </tbody>
     </table>
-    <div class="table-footer pt-2">
+    <div class="table-footer pt-2 pb-2">
         {{ $products->links() }}
     </div>
 </div>
+@stop
+
+@section('footer')
+    <livewire:footer>
 @stop
 
 @section('css')

@@ -3,41 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\Custom\WebParser;
+use App\Custom\WebScraper;
+use App\Models\Price;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Goutte\Client;
+use Illuminate\Support\Facades\DB;
 
 class AmazonGoutteController extends Controller
 {
     public function doWebScraping() {
-        $goutteClient = new Client();
-        $parser = new WebParser();
-        $goutteClient->setServerParameter('HTTP_USER_AGENT', 'user agent');
-        
-        $url = 'https://www.technikdirekt.de/sony-playstation-5-digital-edition-825gb-white-76715-de';
+        $webScraper = new WebScraper();
+        $products = Product::all();
 
-        $crawler = $goutteClient->request(
-            method: 'GET',
-            uri: $url,
-        );
+        foreach ($products as $product) {
+            $urls = $product->urls;
+            foreach ($urls as $url) {
+                $uri = $url->url;
+                $scraping = $webScraper->doWebScraping($uri);
+                
+                $priceRegistered = $url->prices->count();
 
-        $domain = explode('.', $url)[1];
-        $componentSelector = $this->findSelector($domain);
-        
-        $filterComponent = $crawler->filter(selector: $componentSelector);
-        if ($filterComponent->count() != 0) {
-            $text = $filterComponent->text();
-            return [
-                'statusCode' => '200',
-                'priceValue' => $parser->parsePrice($domain, $text),
-                'currency' => 'EUR',
-            ];
+                if ($scraping['statusCode'] == 200) {
+
+                    if ($priceRegistered != 0) {
+                        $lastPrice = Price::orderBy('created_at', 'desc')->first();
+                        $lastPriceAmount = floatval($lastPrice->amount);
+                        $epsilon = 0.00001;
+                        if ((round($lastPriceAmount, 2) - round($scraping['priceValue'], 2)) < $epsilon) continue;
+                    }
+
+                    $url->prices()->create([
+                        'url_id' => $url->id,
+                        'amount' => $scraping['priceValue'],
+                        'currency' => $scraping['currency'],
+                    ]);
+                }
+            }
         }
-        else {
-            return [
-                'statusCode' => '404',
-            ];
-        }
-        
     }
 
     private function findSelector(string $domain) {

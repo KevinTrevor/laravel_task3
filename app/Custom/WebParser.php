@@ -24,7 +24,9 @@ class WebParser
                 $priceFloat = 0.0;
                 break;
             case 'alza':
-                $priceFloat = 0.0;
+                $priceStr = explode(' ', $unparse_price)[0];
+                $priceStr = str_replace(',', '.', $priceStr);
+                $priceFloat = floatval($priceStr);
                 break;
             case 'technikdirekt':
                 $priceFloat = 0.0;
