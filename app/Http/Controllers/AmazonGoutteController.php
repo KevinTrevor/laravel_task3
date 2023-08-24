@@ -28,9 +28,9 @@ class AmazonGoutteController extends Controller
 
                     if ($priceRegistered != 0) {
                         $lastPrice = Price::orderBy('created_at', 'desc')->first();
-                        $lastPriceAmount = floatval($lastPrice->amount);
-                        $epsilon = 0.00001;
-                        if ((round($lastPriceAmount, 2) - round($scraping['priceValue'], 2)) < $epsilon) continue;
+                        $lastPriceAmount = strval($lastPrice->amount);
+                        $actualPriceAmount = strval($scraping['priceValue']);
+                        if (bccomp($lastPriceAmount, $actualPriceAmount)) continue;
                     }
 
                     $url->prices()->create([

@@ -2,11 +2,9 @@
 
 namespace App\Console;
 
-use App\Models\Product;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Support\Facades\DB;
-use App\Custom\WebScraper;
+use App\Jobs\WebScrapingJob;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,31 +13,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        /*
-        $schedule->call(function () {
-            $webScraper = new WebScraper();
-            $products = Product::all();
-
-            foreach ($products as $product) {
-                $urls = $product->urls;
-
-                foreach ($urls as $url) {
-                    $uri = $url->url;
-                    $scraping = $webScraper->doWebScraping($uri);
-                    
-                    if ($url->prices->count() == 0) {
-                        
-                    }
-                    if ($scraping['statusCode'] == 200) {
-                        $url->prices()->create([
-                        'url_id' => $url->id,
-                        'amount' => $scraping['priceValue'],
-                        'currency' => $scraping['currency'],
-                    ]);
-                }
-            }
-        })->everyMinute();
-        */
+        $schedule->job(new WebScrapingJob())
+        ->everyMinute()
+        ->withoutOverlapping()
+        ->description('Do webscraping for the products');
     }
 
     /**
