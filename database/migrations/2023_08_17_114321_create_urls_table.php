@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('urls', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_id')->constrained(table: "products", column: "id");
             $table->text('url');
             $table->timestamps();
         });
